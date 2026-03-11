@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Shapiro Slider</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body style="background-color: black; color: white;">
+        <div style="width: 100%;">
+            <div style="display: flex; width: 600px; margin: 0 auto; font-size: 25px; font-weight: bold; margin-bottom: 20px; ">
+                Sound <input type="checkbox" id="soundToggle" />
+                <input type="range" min="0" max="120" value="50" id="slider" style="margin: 0 auto; width: 400px; display: block;" />
+                <span id="sliderValue" style="display: block; text-align: center;">50%</span>
+            </div>
+            <div style="margin: 0 auto; width: 600px; height: 583px; background-image: url('./shapiro.png'); background-size: cover; overflow: hidden;">
+                <img class="eyebrows" src="./eyebrows.png" style="width: 600px; transform-origin: top;" />
+            </div>
+            <div style="width: 600px; margin: 0 auto;">
+                <p style="text-align: center; font-size: 14px; margin-top: 20px;">Follow me on twitch @ <a style="color: white;" href="https://twitch.tv/luney_luna" target="_blank">luney_luna</a></p>
+            </div>
+        </div>
+    </body>
+    <script>
+        const slider = document.getElementById('slider');
+        const sliderValue = document.getElementById('sliderValue');
+        const soundToggle = document.getElementById('soundToggle');
+        let soundClip = new Audio('shapiro.mp3');
+
+        const eyebrows = document.querySelector('.eyebrows');
+        slider.addEventListener('input', () => {
+            sliderValue.textContent = `${slider.value}%`;
+            soundClip.pause();
+            soundClip.currentTime = 0;
+            if (soundToggle.checked) {
+                soundClip.playbackRate = 0.4 / (slider.value / 100) + 0.3;
+                soundClip.play();
+            }
+            
+            const scaleY = slider.value / 100 * 3;
+            const eyebrowY = 250;
+            const offsetY = eyebrowY * (1 - scaleY);
+            eyebrows.style.transform = `translateY(${offsetY}px) scaleY(${scaleY})`;
+        });
+    </script>
+</html>
