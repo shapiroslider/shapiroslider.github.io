@@ -6,6 +6,19 @@
         <script src="./howler.min.js"></script>
         <script src="./Tone.js"></script>
     </head>
+    <style>
+        .hide {
+            display: none
+        }
+
+        .show {
+            display: block;
+        }
+
+        .faah {
+            cursor: pointer;
+        }
+    </style>
     <body style="background-color: black; color: white;">
         <div style="width: 100%;">
             <div style="display: flex; width: 600px; margin: 0 auto; font-size: 25px; font-weight: bold; margin-bottom: 20px; ">
@@ -35,6 +48,13 @@
                     Shoutout to <a style="color: white;" href="https://x.com/TheAcidBurns3" target="_blank">@TheAcidBurns3</a> for the idea.
                 </p>
             </div>
+                <p style="text-align: center; font-size: 43px; margin-top: 50px; position: absolute; bottom: 10px; width: 100%;">
+                    Secret for Hasan Below VVVVVVV
+                </p>
+            <div style="width: 600px; margin: 0 auto; margin-top: 2000px;">
+                <p class="fah_message" style="font-size: 20px; font-weight: bold;">Click the FAAAH</p>
+                <img class="faah" src="./fah.webp" style="width: 100%; display: block;" />
+            </div>
         </div>
     </body>
     <script>
@@ -44,23 +64,43 @@
     const leftEyebrow = document.querySelector('.left_eyebrow');
     const rightEyebrow = document.querySelector('.right_eyebrow');
     const soundSelect = document.getElementById('soundSelect');
+    const faah = document.querySelector('.faah');
+    let faah_on = false;
 
     const pShift = new Tone.PitchShift().toDestination();
     const player = new Tone.Player({ url: './facts-dont-care.mp3', volume: -10 }).connect(pShift);
+
+    const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+
 
     soundSelect.addEventListener('change', async () => {
         player.stop();
         await player.load(`./${soundSelect.value}`);
     });
 
+    faah.addEventListener('click', async () => {
+        faah_on = true;
+        player.stop();
+        pShift.pitch = 0;
+        await player.load('./faaahv1.mp3');
+        player.start();
+        await sleep(500);
+        document.querySelector('.fah_message').innerHTML = 'Let your chat know about <a style="color: white;" href="https://icerr.com/" target="_blank">ICERR.com</a>! A tool that helps people find ICE Rapid Response teams in their area. Thank you <span style="color: pink;"><3</span>';
+    });
+
     slider.addEventListener('input', async () => {
         sliderValue.textContent = `${slider.value}%`;
         
         if (soundToggle.checked) {
+            if (faah_on) {
+                player.stop();
+                await player.load(`./${soundSelect.value}`);
+                faah_on = false;
+            }
             await Tone.start();
             player.stop();
             pShift.pitch = (50 -slider.value) / 50 * 12;
-            //player.playbackRate = 0.4 / (slider.value / 100);
             player.start();
         } else {
             player.stop();
