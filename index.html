@@ -3,30 +3,40 @@
         <title>Shapiro Slider</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="./howler.min.js"></script>
         <script src="./Tone.js"></script>
     </head>
     <style>
-        .hide {
-            display: none
+    body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: white;
+    }
+
+    body > div {
+        width: 100%;
+    }
+    .faah {
+        cursor: pointer;
+    }
+
+    @media (max-width: 650px) {
+        .hasan_message {
+            display: none !important;
         }
 
-        .show {
-            display: block;
+        .fah_message {
+            display: none !important;
         }
-
-        .faah {
-            cursor: pointer;
-        }
+    }
     </style>
-    <body style="background-color: black; color: white;">
-        <div style="width: 100%;">
-            <div style="display: flex; width: 600px; margin: 0 auto; font-size: 25px; font-weight: bold; margin-bottom: 20px; ">
-                Sound <input type="checkbox" id="soundToggle" />
-                <input type="range" min="0" max="120" value="50" id="slider" style="margin: 0 auto; width: 400px; display: block;" />
+    <body>
+        <div>
+            <div style="display: flex; margin: 0 auto; max-width: 600px; font-size: 25px; font-weight: bold; margin-bottom: 20px; flex-wrap: wrap;">
+                Sound On?<input type="checkbox" id="soundToggle" />
+                <input type="range" min="0" max="120" value="50" id="slider" style="margin: 0 auto; width: 350px; display: block;" />
                 <span id="sliderValue" style="display: block; text-align: center;">50%</span>
             </div>
-            <div style="display: flex; width: 600px; margin: 0 auto; font-size: 25px; font-weight: bold; margin-bottom: 20px; ">
+            <div style="display: flex; flex-wrap: wrap; width: 100%; max-width: 600px; margin: 0 auto; font-size: 25px; font-weight: bold; margin-bottom: 20px; ">
                 Sound Clip
                 <select id="soundSelect" style="margin-left: 10px;">
                     <option value="facts-dont-care.mp3" selected>Facts Don't Care</option>
@@ -48,9 +58,9 @@
                     Shoutout to <a style="color: white;" href="https://x.com/TheAcidBurns3" target="_blank">@TheAcidBurns3</a> for the idea.
                 </p>
             </div>
-                <p style="text-align: center; font-size: 43px; margin-top: 50px; position: absolute; bottom: 10px; width: 100%;">
-                    Secret for Hasan Below VVVVVVV
-                </p>
+            <p class="hasan_message" style="text-align: center; font-size: 43px; margin-top: 50px; position: absolute; bottom: 10px; width: 100%;">
+                Secret for Hasan Below VVVVVVV
+            </p>
             <div style="width: 600px; margin: 0 auto; margin-top: 2000px;">
                 <p class="fah_message" style="font-size: 20px; font-weight: bold;">Click the FAAAH</p>
                 <img class="faah" src="./fah.webp" style="width: 100%; display: block;" />
