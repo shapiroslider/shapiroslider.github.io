@@ -99,10 +99,22 @@
         document.querySelector('.fah_message').innerHTML = 'Let your chat know about <a style="color: white;" href="https://icerr.com/" target="_blank">ICERR.com</a>! A tool that helps people find ICE Rapid Response teams in their area. Thank you <span style="color: pink;"><3</span>';
     });
 
-    slider.addEventListener('input', async () => {
+    let sliderDebounce = null;
+
+    slider.addEventListener('input', () => {
         sliderValue.textContent = `${slider.value}%`;
-        
-        if (soundToggle.checked) {
+
+        const scale = slider.value / 100 * 3;
+        leftEyebrow.style.transform = `scaleY(${scale}) scaleX(${scale * 0.5})`;
+        rightEyebrow.style.transform = `scaleY(${scale}) scaleX(${scale * 0.5})`;
+
+        if (!soundToggle.checked) {
+            player.stop();
+            return;
+        }
+
+        clearTimeout(sliderDebounce);
+        sliderDebounce = setTimeout(async () => {
             if (faah_on) {
                 player.stop();
                 await player.load(`./${soundSelect.value}`);
@@ -110,15 +122,9 @@
             }
             await Tone.start();
             player.stop();
-            pShift.pitch = (50 -slider.value) / 50 * 12;
+            pShift.pitch = (50 - slider.value) / 50 * 12;
             player.start();
-        } else {
-            player.stop();
-        }
-
-        const scale = slider.value / 100 * 3;
-        leftEyebrow.style.transform = `scaleY(${scale}) scaleX(${scale * 0.5})`;
-        rightEyebrow.style.transform = `scaleY(${scale}) scaleX(${scale * 0.5})`;
+        }, 150);
     });
 </script>
 </html>
